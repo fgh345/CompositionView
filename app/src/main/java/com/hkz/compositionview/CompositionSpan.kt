@@ -1,4 +1,4 @@
-package com.tangce.wisdom.widget.helper
+package com.hkz.compositionview
 
 import android.graphics.Canvas
 import android.graphics.Paint

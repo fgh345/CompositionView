@@ -10,6 +10,7 @@ import android.os.Message
 import android.text.Editable
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -30,10 +31,12 @@ class CompositionView : View, View.OnClickListener {
      * 格子画笔
      */
     private val paintA = Paint()
+
     /**
      * 字画笔
      */
     private val paintB = TextPaint()
+
     /**
      * 游标画笔
      */
@@ -43,50 +46,62 @@ class CompositionView : View, View.OnClickListener {
      *  行间距  上下各 5f
      */
     private val lineSpacing = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6f, resources.displayMetrics).toInt()
+
     /**
      * 行高(包括行间距) 行高减去行间距等于<格子宽>
      */
     private val lineHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50f, resources.displayMetrics).toInt()
+
     /**
      * 每行最大字数 （屏幕宽 / 格子宽）
      */
     private var horCoun: Int = 0
+
     /**
      * 限制最大行数  （也是绘制行数）
      */
     private var verCounMax: Int = 0
+
     /**
      * 字数限制  通过字数限制 算出最大行数
      */
     private val limSize = 1000
+
     /**
      * 可编辑字符串
      */
     private lateinit var textEdit: Editable
+
     /**
      * 字高 由画笔算出
      */
     private var textHeight: Float = 0.0f
+
     /**
      *  游标 字插入位置
      */
     private var cursor: Int = 0
+
     /**
      *  游标绘制坐标
      */
     private var cursorDrawPos: IntArray = intArrayOf(0, 0)
+
     /**
      *  输入法管理器
      */
     private lateinit var input: InputMethodManager
+
     /**
      *  文本绘制信息集合
      */
     private val wordInfoList = ArrayList<ArrayList<Word>>()
+
     /**
      *  控制光标闪烁
      */
     private var isTwinkle = false
+
     /**
      *  scrollview 滚动接口
      */
@@ -253,6 +268,8 @@ class CompositionView : View, View.OnClickListener {
     override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection {
         return object : BaseInputConnection(this, false) {
             override fun commitText(text: CharSequence, newCursorPosition: Int): Boolean {
+
+                Log.d("11111", "$text")
 
                 textEdit.insert(cursor, text)
                 cursor += text.length

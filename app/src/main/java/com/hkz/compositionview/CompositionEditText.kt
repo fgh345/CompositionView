@@ -1,4 +1,4 @@
-package com.tangce.wisdom.widget
+package com.hkz.compositionview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,14 +7,13 @@ import android.graphics.Paint
 import android.text.*
 import android.util.AttributeSet
 import android.view.Gravity
-import com.tangce.wisdom.widget.helper.CompositionSpan
 
 
 /**
  * Created by TangCE-Z on 2017/12/11.
  */
 
-class CompositionEditText : android.support.v7.widget.AppCompatEditText {
+class CompositionEditText : androidx.appcompat.widget.AppCompatEditText {
 
     //格子画笔
     private val paintB = Paint()
@@ -54,7 +53,7 @@ class CompositionEditText : android.support.v7.widget.AppCompatEditText {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         if (lengthAfter > 0) {//添加字符
             for (index in start until start + lengthAfter) {
-                getText().setSpan(CompositionSpan(lineHeight - 10, paint), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                getText()?.setSpan(CompositionSpan(lineHeight - 10, paint), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
     }
